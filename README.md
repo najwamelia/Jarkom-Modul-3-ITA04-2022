@@ -154,6 +154,7 @@ subnet 192.212.1.0 netmask 255.255.255.0 {
     default-lease-time 300;
     max-lease-time 6900;
 }
+```
 
 ## Soal 4
 Client yang melalui Switch3 mendapatkan range IP dari [prefix IP].3.10 - [prefix IP].3.30 dan [prefix IP].3.60 - [prefix IP].3.85 (4)
