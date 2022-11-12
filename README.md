@@ -121,15 +121,56 @@ Dalam proses download dhcp-relay, IP Westalis (192.217.2.4) sebagai dhcp-server 
 Client yang melalui Switch1 mendapatkan range IP dari [prefix IP].1.50 - [prefix IP].1.88 dan [prefix IP].1.120 - [prefix IP].1.155 (3)
 
 ### Jawab
-Lorem
+Pertama, perlu dilakukan konfigurasi pada Ostania sebagai DHCP Relay dengan melakukan edit file /etc/default/isc-dhcp-relay dengan konfigurasi berikut
 
+```
+# What servers should the DHCP relay forward requests to?
+SERVERS=\"192.212.2.4\"
+# On what interfaces should the DHCP relay (dhrelay) serve DHCP requests?
+INTERFACES=\"eth1 eth3 eth2\"
+# Additional options that are passed to the DHCP relay daemon?
+OPTIONS=\"\"
+```
+
+Selanjutnya pada Westalis sebagai DHCP Server, dilakukan konfigurasi pada file /etc/default/isc-dhcp-server sebagai berikut:
+
+```
+# On what interfaces should the DHCP server (dhcpd) serve DHCP requests?
+#       Separate multiple interfaces with spaces, e.g. \"eth0 eth1\".
+INTERFACES=\"eth0\"
+```
+
+Kemudian dilakukan restart DHCP server dengan `service isc-dhcp-server restart`. Setelah itu dilakukan konfigurasi untuk rentang IP yang akan diberikan pada file /etc/dhcp/dhcpd.conf dengan menulis seperti dibawah ini:
+
+```
+subnet 192.212.2.0 netmask 255.255.255.0 {
+}
+subnet 192.212.1.0 netmask 255.255.255.0 {
+    range  192.212.1.50 192.212.1.88;
+    range  192.212.1.120 192.212.1.155;
+    option routers 192.212.1.1;
+    option broadcast-address 192.212.1.255;
+    option domain-name-servers 192.212.2.2;
+    default-lease-time 300;
+    max-lease-time 6900;
+}
 
 ## Soal 4
 Client yang melalui Switch3 mendapatkan range IP dari [prefix IP].3.10 - [prefix IP].3.30 dan [prefix IP].3.60 - [prefix IP].3.85 (4)
 
 ### Jawab
-Lorem
+Sama seperti sebelumnya, tambahkan konfigurasi untuk rentang IP yang akan diberikan pada file /etc/dhcp/dhcpd.conf dengan konfigurasi pada berikut ini:
 
+```
+subnet 192.212.3.0 netmask 255.255.255.0 {
+    range  192.212.3.60 192.212.3.85;
+    option routers 192.212.3.1;
+    option broadcast-address 192.212.3.255;
+    option domain-name-servers 192.212.2.2;
+    default-lease-time 600;
+    max-lease-time 6900;
+}
+```
 
 ## Soal 5
 Client mendapatkan DNS dari WISE dan client dapat terhubung dengan internet melalui DNS tersebut. (5)
