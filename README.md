@@ -156,6 +156,11 @@ subnet 192.212.1.0 netmask 255.255.255.0 {
 }
 ```
 
+#### Testing
+Pada Switch1 (SSS) sudah mendapatkan range IP dari [prefix IP].1.50 - [prefix IP].1.88 : 192.212.1.52
+![Foto](./img/3a.PNG)
+
+
 ## Soal 4
 Client yang melalui Switch3 mendapatkan range IP dari [prefix IP].3.10 - [prefix IP].3.30 dan [prefix IP].3.60 - [prefix IP].3.85 (4)
 
@@ -172,6 +177,11 @@ subnet 192.212.3.0 netmask 255.255.255.0 {
     max-lease-time 6900;
 }
 ```
+
+#### Testing
+Pada Switch3 (Eden) sudah mendapatkan range IP dari [prefix IP].3.10 - [prefix IP].3.30
+![Foto](./img/4.PNG)
+
 
 ## Soal 5
 Client mendapatkan DNS dari WISE dan client dapat terhubung dengan internet melalui DNS tersebut. (5)
